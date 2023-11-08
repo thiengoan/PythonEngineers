@@ -11,8 +11,8 @@ def hello_world():
 
 @app.route("/download_stock")
 def download_stock():
-    stock_symbol = 'AAPL' 
-    stock_data = yf.download(stock_symbol, start='2022-01-01', end='2022-12-31')
+    stock = 'AAPL' 
+    stock_data = yf.download(stock, start='2022-01-01', end='2022-12-31')
     return stock_data.to_csv("final.csv")
 
 @app.route("/show_chart")    
@@ -32,12 +32,15 @@ def chart_bollinger():
 
     fig = go.Figure()
 
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['Adj Close'] , mode='lines', name='Adj Close'))
+    fig.add_trace(go.Candlestick(x=df['Date'],
+                open=df['Open'], high=df['High'],
+                low=df['Low'], close=df['Close']))
+    
+    #fig.add_trace(go.Scatter(x=df['Date'], y=df['Adj Close'] , mode='lines', name='Adj Close'))
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BU'], mode='lines', name='BU', line=dict(color='firebrick', width=1, dash='dash')))
     fig.add_trace(go.Scatter(x=df['Date'], y=df['BL'], mode='lines', name='BL', line=dict(color='royalblue', width=1, dash='dash')))
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['BU'], fill='tonexty', fillcolor='rgba(0,100,80,0.2)', line_color='rgba(255,255,255,0)', showlegend=False))
-    fig.add_trace(go.Scatter(x=df['Date'], y=df['B_MA'],mode='lines',name='B_MA'))
-
+    #fig.add_trace(go.Scatter(x=df['Date'], y=df['BU'], fill='tonexty', fillcolor='rgba(0,100,80,0.2)', line_color='rgba(255,255,255,0)', showlegend=False))
+    #fig.add_trace(go.Scatter(x=df['Date'], y=df['B_MA'],mode='lines',name='B_MA'))
     fig.show()
     
 def inc_dec(c, o):  #param ( c: Close , o: Open )

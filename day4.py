@@ -1,15 +1,24 @@
-from flask import Flask
+class Person:
 
-app = Flask(__name__)
+    def __init__(self,name,age):
+        self.name = name
+        self.age = age
+       
+    def info(self):
+        print('Name: {} , Age: {}'.format(self.name,self.age))
 
-@app.route("/")
-def hello_world():
-    return "Hello world"
+class Employer(Person):
+    def __init__(self,name,age,salary):
+        super().__init__(name,age)
+        self.salary = salary
+       
+    def info(seft):
+        Person.info(self)
+        print('Salary: {} '.format(self.salary))
 
-@app.route("/path")
-def path():
-    return "Hi Path"
+a = Employer('Ngoan',21)
 
-if __name__ == "__main__":
-    app.run()
+print(a.info())
 
+b = Employer('Tuan',30,2000)
+print(b.salary)
