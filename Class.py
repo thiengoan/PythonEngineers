@@ -22,7 +22,6 @@ print(bmw.sound)
 print(toyota.sound)
 print(bmw.color)
 print(toyota.color)
-
 bmw.sayHello()
 
 Car.Tall()
